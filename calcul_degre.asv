@@ -1,0 +1,30 @@
+function [lambda,pho] = calcul_degre(H)
+format rat
+[nb_parite, nb_variables]=size(H);
+
+h_col=sum(H);
+[GC,GR] = groupcounts(h_col');
+lengc=length(GC);
+
+for i=1:lengc
+
+    lambda_t(i)=GC(i)/nb_variables;
+    deg(i) = GR(i)-1;
+end
+
+lambda= @(x) lambda_t .* x.^deg;
+
+
+h_col=sum(H');
+[GC,GR] = groupcounts(h_col');
+lengc=length(GC);
+
+for i=1:lengc
+    pho_t(i)=GC(i)/nb_variables;
+    deg(i) = GR(i)-1;
+end
+
+pho= @(x) lambda_t .* x.^deg;
+
+end
+
